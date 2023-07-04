@@ -9,6 +9,10 @@ class PgSliceTest < Minitest::Test
     assert_period "day"
   end
 
+  def test_week
+    assert_period "week"
+  end
+
   def test_month
     assert_period "month"
   end
@@ -82,6 +86,8 @@ class PgSliceTest < Minitest::Test
     time_format = case period
       when "day"
         "%Y%m%d"
+      when "week"
+        "%G%V"
       when "month"
         "%Y%m"
       else
@@ -130,6 +136,8 @@ class PgSliceTest < Minitest::Test
     days = case period
       when "day"
         3
+      when "week"
+        3 * PgSlice::Helpers::DAYS_IN_WEEK
       when "month"
         90
       else
